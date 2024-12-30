@@ -33,15 +33,55 @@ impl Ticket {
             status,
         }
     }
+    fn check_title(new_title: &String) -> bool {
+        if new_title.is_empty() {
+            panic!("Title cannot be empty");
+        }
+        if new_title.len() > 50 {
+            panic!("Title cannot be longer than 50 bytes");
+        }
+        true
+    }
+    pub fn set_title(&mut self, new_title: String) {
+        if Ticket::check_title(&new_title) {
+            self.title = new_title;
+        }
+    }
+
+    fn check_description(new_description: &String) -> bool {
+        if new_description.is_empty() {
+            panic!("Description cannot be empty");
+        }
+        if new_description.len() > 500 {
+            panic!("Description cannot be longer than 500 bytes");
+        }
+        true
+    }
 
     pub fn title(&self) -> &String {
         &self.title
     }
 
+    pub fn set_description(&mut self, new_description: String) {
+        if Ticket::check_description(&new_description) {
+            self.description = new_description;
+        }
+    }
     pub fn description(&self) -> &String {
         &self.description
     }
+    pub fn check_status(new_status: &String) -> bool {
+        if new_status != "To-Do" && new_status != "In Progress" && new_status != "Done" {
+            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+        }
+        true
+    }
 
+    pub fn set_status(&mut self, new_status: String) {
+        if Ticket::check_status(&new_status) {
+            self.status = new_status;
+        }
+    }
     pub fn status(&self) -> &String {
         &self.status
     }
